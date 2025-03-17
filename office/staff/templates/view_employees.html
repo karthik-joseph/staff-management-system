@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% load static %} {% block title %} Staff Directory
+View {% endblock %} {% block style %}
+<link rel="stylesheet" href="{% static 'css/view_employee.css' %}" />
+{% endblock %} {% block content %}
+<h2>Staff Directory</h2>
+<table>
+  <tr>
+    <th>Emp Id</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Department</th>
+    <th>Position</th>
+    <th>Salary</th>
+    <th>Bonus</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Date hire</th>
+  </tr>
+  {% if employees %} {% for employee in employees %}
+  <tr>
+    <td class="empid">{{ employee.id }}</td>
+    <td>{{ employee.first_name }}</td>
+    <td>{{ employee.last_name }}</td>
+    <td>{{ employee.dept.dept_name }}</td>
+    <td>{{ employee.role.role_name }}</td>
+    <td>{{ employee.salary }}</td>
+    <td>{{ employee.bonus }}</td>
+    <td>{{ employee.email }}</td>
+    <td>{{ employee.phone }}</td>
+    <td>{{ employee.date_hire }}</td>
+  </tr>
+  {% endfor %} {% else %}
+  <tr>
+    <td colspan="5" class="no-employee">No employees found</td>
+  </tr>
+  {% endif %}
+</table>
+{% endblock %}

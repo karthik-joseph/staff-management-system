@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% load static %} {% block title %} staff management
+system | Add employee {% endblock %} {% block style %}
+<link rel="stylesheet" href="{% static 'css/add_employee.css' %}" />
+{% endblock %} {% block content %}
+
+<!-- display success message if any -->
+{% if success_message %}
+<div style="color: green; text-align: center; margin-top: 10px" class="message">
+  <h1>{{ success_message }}</h1>
+</div>
+{% endif %}
+<section class="container">
+  <h1>Add New Employee</h1>
+  <form action="/add_employee" method="POST" id="myForm">
+    {% csrf_token %}
+    <br />
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" required />
+    <br />
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name" name="last_name" required />
+    <br />
+    <label for="dept">Department:</label>
+    <select name="dept" id="dept">
+      <option class="option-value" value="">Select Department</option>
+      {% for dept in departments %}
+      <option class="option-value" value="{{ dept.id }}">
+        {{ dept.dept_name }}
+      </option>
+      {% endfor %}
+    </select>
+    <br />
+    <label for="role">Role:</label>
+    <select name="role" id="role">
+      <option class="option-value" value="">Select Role</option>
+      {% for role in roles %}
+      <option class="option-value" value="{{ role.id }}">
+        {{ role.role_name }}
+      </option>
+      {% endfor %}
+    </select>
+    <br />
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
+    <br />
+    <label for="salary">Salary:</label>
+    <input type="number" id="salary" name="salary" required />
+    <br />
+    <label for="bonus">Bonus:</label>
+    <input type="number" id="bonus" name="bonus" required />
+    <br />
+    <label for="date_hire">Date Hire:</label>
+    <input type="date" id="date_hire" name="date_hire" required />
+    <br />
+    <label for="phone">Phone:</label>
+    <input type="number" id="phone" name="phone" required />
+    <input type="submit" value="Add Employee" />
+    {% if success_message %}
+    <!-- js file for resetting the fields-->
+    <script src="{% static 'js/reset.js' %}"></script>
+    {% endif %}
+  </form>
+  <a href="/view_employee" class="btn">View Employees</a>
+</section>
+<script src="{% static 'js/timer.js' %}"></script>
+{% endblock %}
