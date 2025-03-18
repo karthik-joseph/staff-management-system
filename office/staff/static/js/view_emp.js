@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const sortBy = document.getElementById("sortBy");
   const tableRows = document.querySelectorAll("table tr:not(:first-child)");
 
-  // Create and add the message element
   const messageDiv = document.createElement("div");
   messageDiv.id = "filter-message";
   messageDiv.style.textAlign = "center";
