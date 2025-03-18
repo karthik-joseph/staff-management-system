@@ -1,38 +1,105 @@
 {% extends "base.html" %} {% load static %} {% block title %} Staff Directory
 View {% endblock %} {% block style %}
-<link rel="stylesheet" href="{% static 'css/view_employee.css' %}" />
+<link rel="stylesheet" href="{% static 'css/v_e.css' %}" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+/>
 {% endblock %} {% block content %}
-<h2>Staff Directory</h2>
-<table>
-  <tr>
-    <th>Emp Id</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Department</th>
-    <th>Position</th>
-    <th>Salary</th>
-    <th>Bonus</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Date hire</th>
-  </tr>
-  {% if employees %} {% for employee in employees %}
-  <tr>
-    <td class="empid">{{ employee.id }}</td>
-    <td>{{ employee.first_name }}</td>
-    <td>{{ employee.last_name }}</td>
-    <td>{{ employee.dept.dept_name }}</td>
-    <td>{{ employee.role.role_name }}</td>
-    <td>{{ employee.salary }}</td>
-    <td>{{ employee.bonus }}</td>
-    <td>{{ employee.email }}</td>
-    <td>{{ employee.phone }}</td>
-    <td>{{ employee.date_hire }}</td>
-  </tr>
-  {% endfor %} {% else %}
-  <tr>
-    <td colspan="5" class="no-employee">No employees found</td>
-  </tr>
-  {% endif %}
-</table>
+<div class="staff-directory">
+  <h2>Staff Directory</h2>
+
+  <div class="controls-row">
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" id="staffSearch" placeholder="Search employees..." />
+    </div>
+
+    <div class="filter-options">
+      <select id="deptFilter">
+        <option value="">All Departments</option>
+        {% for department in departments %}
+        <option value="{{ department.dept_name }}">
+          {{ department.dept_name }}
+        </option>
+        {% endfor %}
+      </select>
+
+      <select id="roleFilter">
+        <option value="">All Roles</option>
+        {% for role in roles %}
+        <option value="{{ role.role_name }}">{{ role.role_name }}</option>
+        {% endfor %}
+      </select>
+
+      <select id="sortBy">
+        <option value="id">Sort by ID</option>
+        <option value="name">Sort by Name</option>
+        <option value="dept">Sort by Department</option>
+        <option value="date">Sort by Hire Date</option>
+      </select>
+    </div>
+
+    <button class="btn btn-add">
+      <i class="fas fa-plus"></i> Add Employee
+    </button>
+  </div>
+
+  <div class="staff-table-container">
+    <table>
+      <tr>
+        <th>Emp ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>Salary</th>
+        <th>Bonus</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Date Hired</th>
+        <th>Actions</th>
+      </tr>
+      {% if employees %} {% for employee in employees %}
+      <tr>
+        <td class="empid">{{ employee.id }}</td>
+        <td>{{ employee.first_name }}</td>
+        <td>{{ employee.last_name }}</td>
+        <td>{{ employee.dept.dept_name }}</td>
+        <td>{{ employee.role.role_name }}</td>
+        <td>${{ employee.salary }}</td>
+        <td>${{ employee.bonus }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.phone }}</td>
+        <td>{{ employee.date_hire }}</td>
+        <td class="actions">
+          <button class="btn-icon btn-view" title="View Details">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button class="btn-icon btn-edit" title="Edit">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn-icon btn-delete" title="Delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="11" class="no-employee">No employees found</td>
+      </tr>
+      {% endif %}
+    </table>
+  </div>
+
+  <div class="pagination">
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">Next</a>
+  </div>
+</div>
+<script src="{% static 'js/v_e.js' %}"></script>
 {% endblock %}

@@ -2,28 +2,24 @@ import datetime
 
 from django.shortcuts import render
 from django.db.models import Q
+from django.http import JsonResponse
 
 from .models import Employee, Department, Role
 
 
-
-
-def index(request):
-    employees = Employee.objects.all()
-    context = {'employees': employees}  
-    return render(request, 'index.html', context)
-
 def view_employee(request):
     """
     View function to display all employees.
-    Ensures fresh data is fetched from the database on each request.
+    Ensures fresh data is fetched sfrom the database on each request.
     """
     # Always fetch fresh data from the database
     employees = Employee.objects.all()
     
     context = {
         'employees': employees,
-        # Add timestamp to prevent browser caching
+        'departments': Department.objects.all(),
+        'roles': Role.objects.all(),
+        # Added timestamp to prevent browser caching
         'timestamp': datetime.datetime.now().timestamp(),
     }
     
@@ -77,46 +73,3 @@ def delete_employee(request):
             context['error_message'] = f'Employee with ID {employee_id} does not exist'
     
     return render(request, 'delete_employees.html', context)
-
-def filter_employee(request):
-    """
-    View function to filter employees based on name, department, and role.
-    """
-    # Initialize with all employees
-    filtered_employees = Employee.objects.all()
-    context = {}
-    
-    if request.method == 'GET' and request.GET:
-        # Get filter parameters
-        name = request.GET.get('name', '').strip()
-        department = request.GET.get('dept', '').strip()
-        role = request.GET.get('role', '').strip()
-        
-        # Apply filters if provided
-        if name:
-            # For name, check both first_name and last_name
-            filtered_employees = filtered_employees.filter(
-                Q(first_name__icontains=name) | Q(last_name__icontains=name)
-            )
-        
-        if department:
-            # Department is a foreign key named 'dept', and has 'dept_name' field in Department model
-            filtered_employees = filtered_employees.filter(
-                dept__dept_name__icontains=department
-            )
-        
-        if role:
-            # Role is a foreign key, and has 'role_name' field in Role model
-            filtered_employees = filtered_employees.filter(
-                role__role_name__icontains=role
-            )
-            
-        context['filter_applied'] = True
-        context['filtered_employees'] = filtered_employees
-    
-    # Always include departments and roles in context for dropdown menus
-    context['departments'] = Department.objects.all()
-    context['roles'] = Role.objects.all()
-    context['employees'] = filtered_employees
-    
-    return render(request, 'filter_employees.html', context)
