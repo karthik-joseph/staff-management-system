@@ -32,7 +32,10 @@ def view_employee(request):
     return response
 
 def add_employee(request):
-    context = {'departments': Department.objects.all(), 'roles': Role.objects.all()}
+    context = {
+        'departments': Department.objects.all(), 
+        'roles': Role.objects.all()
+    }
     if request.method == 'POST':
         print(request.POST)
         employee = Employee()

@@ -257,3 +257,151 @@ tr:hover {
     flex-wrap: wrap;
   }
 }
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: all ease-in-out 0.8s;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.modal-content {
+  background-color: var(--Midnight-Navy);
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 700px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(220, 63, 63, 0.1);
+  animation: jumpedContent 0.8s ease-in-out;
+  color: var(--primary-text);
+}
+
+@keyframes jumpedContent {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+    color: var(--primary-text);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--Periwinkle);
+}
+
+.close {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--Midnight-Navy);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  border: 1px solid var(--Periwinkle);
+  padding: 0.5rem 0.8rem;
+  border-radius: 50%;
+  background-color: var(--Periwinkle);
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+}
+
+.close:hover {
+  color: var(--alert);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+  padding: 20px 0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--Lavender-Mist);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  transition: border-color 0.6s ease;
+  background-color: transparent;
+  /* filter: drop-shadow(0 0 10px 10px rgba(0, 0, 0, 0.1)); */
+  box-shadow: 0 0 10px 10px rgba(198, 216, 218, 0.1);
+  color: whitesmoke;
+}
+
+.form-group select option {
+  background-color: var(--Midnight-Navy);
+  color: whitesmoke;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-submit,
+.btn-cancel {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+}
+
+.btn-submit:hover {
+  background-color: #1557b0;
+}
+
+.btn-cancel {
+  background-color: #f1f3f4;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+}
+
+.btn-cancel:hover {
+  background-color: #e8eaed;
+}

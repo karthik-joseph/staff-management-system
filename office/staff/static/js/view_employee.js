@@ -146,6 +146,74 @@ document.addEventListener("DOMContentLoaded", function () {
     updateVisibilityAndMessage(visibleRows, "role", this.value);
   });
 
+  // Modal elements
+  const modal = document.getElementById("addEmployeeModal");
+  const openModalBtn = document.getElementById("openAddModal");
+  const closeModalBtn = document.querySelector(".close");
+  const cancelBtn = document.getElementById("cancelAdd");
+  const addEmployeeForm = document.getElementById("addEmployeeForm");
+
+  // Open modal
+  openModalBtn.addEventListener("click", function () {
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden"; // Prevent background scrolling
+  });
+
+  // Close modal functions
+  function closeModal() {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto"; // Restore scrolling
+    addEmployeeForm.reset(); // Reset form
+  }
+
+  // Close modal when clicking the X button
+  closeModalBtn.addEventListener("click", closeModal);
+
+  // Close modal when clicking the Cancel button
+  cancelBtn.addEventListener("click", closeModal);
+
+  // Close modal when clicking outside
+  window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Handle form submission
+  addEmployeeForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Create FormData object
+    const formData = new FormData(this);
+
+    // Send POST request
+    fetch(this.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+          .value,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // Show success message
+          alert("Employee added successfully!");
+          closeModal();
+          // Reload the page to show the new employee
+          window.location.reload();
+        } else {
+          // Show error message
+          alert(data.error || "Error adding employee");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error adding employee");
+      });
+  });
+
   // Action buttons handlers
   document.querySelectorAll(".btn-view").forEach((btn) => {
     btn.addEventListener("click", function () {
@@ -182,6 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelectorAll(".pagination a")
         .forEach((l) => l.classList.remove("active"));
       this.classList.add("active");
+      // Here you would normally load the corresponding page data
     });
   });
 });

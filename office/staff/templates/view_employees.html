@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block title %} Staff Directory
 View {% endblock %} {% block style %}
-<link rel="stylesheet" href="{% static 'css/view_emp.css' %}" />
+<link rel="stylesheet" href="{% static 'css/view_employee.css' %}" />
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -40,9 +40,76 @@ View {% endblock %} {% block style %}
       </select>
     </div>
 
-    <a class="btn btn-add" href="/add_employee">
+    <button class="btn btn-add" id="openAddModal">
       <i class="fas fa-plus"></i> Add Employee
-    </a>
+    </button>
+  </div>
+
+  <!-- Add Employee Modal -->
+  <div id="addEmployeeModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Employee</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="addEmployeeForm" action="/add_employee" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required />
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required />
+          </div>
+          <div class="form-group">
+            <label for="dept">Department:</label>
+            <select name="dept" id="dept" required>
+              <option value="">Select Department</option>
+              {% for dept in departments %}
+              <option value="{{ dept.id }}">{{ dept.dept_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <select name="role" id="role" required>
+              <option value="">Select Role</option>
+              {% for role in roles %}
+              <option value="{{ role.id }}">{{ role.role_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" name="salary" required />
+          </div>
+          <div class="form-group">
+            <label for="bonus">Bonus:</label>
+            <input type="number" id="bonus" name="bonus" required />
+          </div>
+          <div class="form-group">
+            <label for="date_hire">Date Hire:</label>
+            <input type="date" id="date_hire" name="date_hire" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="number" id="phone" name="phone" required />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Add Employee</button>
+            <button type="button" class="btn-cancel" id="cancelAdd">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <div class="staff-table-container">
@@ -102,5 +169,5 @@ View {% endblock %} {% block style %}
     <a href="#">Next</a>
   </div>
 </div>
-<script src="{% static 'js/view_emp.js' %}"></script>
+<script src="{% static 'js/view_employee.js' %}"></script>
 {% endblock %}
