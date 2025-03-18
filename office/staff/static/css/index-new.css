@@ -1,11 +1,6 @@
 /* Using Inter as the primary font */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 :root {
   --Soft-Shell: #fff2f2;
   --Lavender-Mist: #a9b5df;
@@ -24,6 +19,12 @@
   --transition-speed: 0.3s ease;
 }
 body {
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-family);
   background: var(--Midnight-Navy);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
 }
