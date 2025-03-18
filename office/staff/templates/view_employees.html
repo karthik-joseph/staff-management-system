@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block title %} Staff Directory
 View {% endblock %} {% block style %}
-<link rel="stylesheet" href="{% static 'css/v_e.css' %}" />
+<link rel="stylesheet" href="{% static 'css/view_emp.css' %}" />
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -40,9 +40,9 @@ View {% endblock %} {% block style %}
       </select>
     </div>
 
-    <button class="btn btn-add">
+    <a class="btn btn-add" href="/add_employee">
       <i class="fas fa-plus"></i> Add Employee
-    </button>
+    </a>
   </div>
 
   <div class="staff-table-container">
@@ -92,6 +92,7 @@ View {% endblock %} {% block style %}
     </table>
   </div>
 
+  <!-- TODO: if any pagination exits need to implement -->
   <div class="pagination">
     <a href="#" class="active">1</a>
     <a href="#">2</a>
@@ -101,5 +102,5 @@ View {% endblock %} {% block style %}
     <a href="#">Next</a>
   </div>
 </div>
-<script src="{% static 'js/v_e.js' %}"></script>
+<script src="{% static 'js/view_emp.js' %}"></script>
 {% endblock %}

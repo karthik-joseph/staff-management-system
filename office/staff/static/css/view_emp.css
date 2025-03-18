@@ -73,6 +73,7 @@
   margin-right: 10px;
   color: var(--primary-text);
   transition: var(--transition-speed);
+  box-sizing: border-box;
 }
 
 .filter-options select:focus {
@@ -93,6 +94,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -241,7 +243,6 @@ tr:hover {
     margin-right: 0;
   }
 }
-
 @media (max-width: 768px) {
   .controls-row {
     flex-direction: column;

@@ -147,11 +147,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updateVisibilityAndMessage(visibleRows, "role", this.value);
   });
 
-  // Add button click handler
-  document.querySelector(".btn-add").addEventListener("click", function () {
-    alert("Add Employee form would open here");
-  });
-
   // Action buttons handlers
   document.querySelectorAll(".btn-view").forEach((btn) => {
     btn.addEventListener("click", function () {
@@ -188,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelectorAll(".pagination a")
         .forEach((l) => l.classList.remove("active"));
       this.classList.add("active");
-      // Here you would normally load the corresponding page data
     });
   });
 });
