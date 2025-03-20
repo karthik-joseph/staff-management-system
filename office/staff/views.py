@@ -87,19 +87,19 @@ def delete_employee(request):
             return JsonResponse({
                 'success': True,
                 'message': f"Employee {employee_name} Deleted successfully!",
-            })
+            }, status=200)
         except Employee.DoesNotExist:
             return JsonResponse({
                 'success': False,
                 'message': "Employee Does Not Exists!"
-            })
+            }, status=404)
         except Exception as e:
             return JsonResponse({
                 'success': False,
                 'message': str(e)
-            })
+            }, status=500)
     
     return JsonResponse({
         'success': False,
         'message': 'Invalid request method'
-    })
+    }, status=405)

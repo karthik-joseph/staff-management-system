@@ -464,3 +464,114 @@ tr:hover {
     opacity: 0;
   }
 }
+
+/* Delete Modal Specific Styles */
+#deleteConfirmModal .modal-content {
+  background-color: var(--Soft-Shell);
+  border: 2px solid var(--Midnight-Navy);
+  box-shadow: 0 4px 6px var(--disabled);
+}
+
+#deleteConfirmModal .modal-header {
+  background-color: var(--alert);
+  color: white;
+  border-radius: 8px 8px 0 0;
+  padding: 15px 20px;
+}
+
+#deleteConfirmModal .modal-header h2 {
+  color: white;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+#deleteConfirmModal .close {
+  color: white;
+  border: 1px solid var(--Midnight-Navy);
+  background-color: transparent;
+}
+
+#deleteConfirmModal .close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--Periwinkle);
+}
+
+#deleteConfirmModal .modal-body {
+  padding: 25px;
+}
+
+#deleteConfirmModal #deleteConfirmMessage {
+  color: #dc3545;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+#deleteConfirmModal .form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+#deleteConfirmModal .btn-submit {
+  background-color: var(--alert);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#deleteConfirmModal .btn-submit:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+#deleteConfirmModal .btn-cancel {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#deleteConfirmModal .btn-cancel:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add warning icon to delete message */
+#deleteConfirmModal #deleteConfirmMessage::before {
+  content: "\f071";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+  color: #dc3545;
+}
+
+/* Add animation for delete modal */
+@keyframes deleteModalIn {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#deleteConfirmModal .modal-content {
+  animation: deleteModalIn 0.6s ease-out;
+}

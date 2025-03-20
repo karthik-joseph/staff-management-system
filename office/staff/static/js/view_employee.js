@@ -422,14 +422,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Store the row and employee ID for later use
       deleteModal.dataset.employeeId = empId;
-      deleteModal.dataset.rowElement = row;
+      deleteModal.dataset.rowElement = row.outerHTML; // Store the row HTML
     });
   });
 
   // Handle delete confirmation
   confirmDeleteBtn.addEventListener("click", function () {
     const empId = deleteModal.dataset.employeeId;
-    const row = deleteModal.dataset.rowElement;
 
     // Create FormData object
     const formData = new FormData();
@@ -448,22 +447,41 @@ document.addEventListener("DOMContentLoaded", function () {
           .value,
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log("Response status:", response.status);
+        if (!response.ok) {
+          return response.json().then((err) => Promise.reject(err));
+        }
+        return response.json();
+      })
       .then((data) => {
-        if (data.success) {
+        console.log("Response data:", data);
+        if (data && data.success) {
           // Show success message
-          showSuccessMessage(data.message);
+          showSuccessMessage(data.message || "Employee deleted successfully!");
           // Remove the row from the table
-          row.remove();
+          const rows = document.querySelectorAll("tr");
+          for (const row of rows) {
+            const empIdCell = row.querySelector(".empid");
+            if (empIdCell && empIdCell.textContent === empId) {
+              row.remove();
+              break;
+            }
+          }
         } else {
-          // Show error message
-          alert(data.message || "Error deleting employee");
+          // Show error message from server
+          showSuccessMessage(data.message || "Error deleting employee");
         }
         closeDeleteModal();
       })
       .catch((error) => {
-        console.error("Error:", error);
-        alert("Error deleting employee");
+        console.error("Error details:", error);
+        // Check if we have a specific error message from the server
+        if (error.message) {
+          showSuccessMessage(error.message);
+        } else {
+          showSuccessMessage("Error deleting employee. Please try again.");
+        }
         closeDeleteModal();
       });
   });
