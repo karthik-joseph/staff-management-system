@@ -1,11 +1,17 @@
 {% extends "base.html" %} {% load static %} {% block title %} Staff Directory
 View {% endblock %} {% block style %}
-<link rel="stylesheet" href="{% static 'css/view_employee.css' %}" />
+<link rel="stylesheet" href="{% static 'css/view_empl.css' %}" />
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 />
-{% endblock %} {% block content %}
+{% endblock %} {% block content %} {% csrf_token %}
+<!-- Success Message Popup -->
+<div id="successPopup" class="success-popup">
+  <i class="fas fa-check-circle"></i>
+  <span id="successMessage"></span>
+</div>
+
 <div class="staff-directory">
   <h2>Staff Directory</h2>
 
@@ -58,10 +64,12 @@ View {% endblock %} {% block style %}
           <div class="form-group">
             <label for="first_name">First Name:</label>
             <input type="text" id="first_name" name="first_name" required />
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="last_name">Last Name:</label>
             <input type="text" id="last_name" name="last_name" required />
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="dept">Department:</label>
@@ -71,6 +79,7 @@ View {% endblock %} {% block style %}
               <option value="{{ dept.id }}">{{ dept.dept_name }}</option>
               {% endfor %}
             </select>
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="role">Role:</label>
@@ -80,26 +89,38 @@ View {% endblock %} {% block style %}
               <option value="{{ role.id }}">{{ role.role_name }}</option>
               {% endfor %}
             </select>
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required />
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="salary">Salary:</label>
-            <input type="number" id="salary" name="salary" required />
+            <input
+              type="number"
+              id="salary"
+              name="salary"
+              min="1000"
+              required
+            />
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="bonus">Bonus:</label>
-            <input type="number" id="bonus" name="bonus" required />
+            <input type="number" id="bonus" name="bonus" min="500" required />
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="date_hire">Date Hire:</label>
             <input type="date" id="date_hire" name="date_hire" required />
+            <div class="error-message"></div>
           </div>
           <div class="form-group">
             <label for="phone">Phone:</label>
             <input type="number" id="phone" name="phone" required />
+            <div class="error-message"></div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn-submit">Add Employee</button>
@@ -108,6 +129,27 @@ View {% endblock %} {% block style %}
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteConfirmModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Confirm Delete</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p id="deleteConfirmMessage"></p>
+        <div class="form-actions">
+          <button type="button" class="btn-submit" id="confirmDelete">
+            Delete
+          </button>
+          <button type="button" class="btn-cancel" id="cancelDelete">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -140,9 +182,9 @@ View {% endblock %} {% block style %}
         <td>{{ employee.phone }}</td>
         <td>{{ employee.date_hire }}</td>
         <td class="actions">
-          <button class="btn-icon btn-view" title="View Details">
+          <!-- <button class="btn-icon btn-view" title="View Details">
             <i class="fas fa-eye"></i>
-          </button>
+          </button> -->
           <button class="btn-icon btn-edit" title="Edit">
             <i class="fas fa-edit"></i>
           </button>

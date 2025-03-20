@@ -349,11 +349,10 @@ tr:hover {
 .form-group select {
   width: 100%;
   padding: 8px 12px;
-  border-radius: 12px;
+  border-radius: 3rem;
   font-size: 14px;
   transition: border-color 0.6s ease;
   background-color: transparent;
-  /* filter: drop-shadow(0 0 10px 10px rgba(0, 0, 0, 0.1)); */
   box-shadow: 0 0 10px 10px rgba(198, 216, 218, 0.1);
   color: whitesmoke;
 }
@@ -388,7 +387,7 @@ tr:hover {
 
 .btn-submit {
   background-color: #1a73e8;
-  color: white;
+  color: var();
   border: none;
 }
 
@@ -404,4 +403,64 @@ tr:hover {
 
 .btn-cancel:hover {
   background-color: #e8eaed;
+}
+
+/* Form Validation Styles */
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  display: none;
+}
+
+.form-group input.error,
+.form-group select.error {
+  border-color: #dc3545;
+}
+
+.form-group input.error:focus,
+.form-group select.error:focus {
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+/* Success Message For employee */
+.success-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: none;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }

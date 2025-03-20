@@ -25,54 +25,81 @@ def view_employee(request):
     
     # Add cache control headers to prevent browser caching
     response = render(request, 'view_employees.html', context)
-    # response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    # response['Pragma'] = 'no-cache'
-    # response['Expires'] = '0'
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
     
     return response
 
 def add_employee(request):
-    context = {
-        'departments': Department.objects.all(), 
-        'roles': Role.objects.all()
-    }
     if request.method == 'POST':
-        print(request.POST)
-        employee = Employee()
-        employee.first_name = request.POST['first_name']
-        employee.last_name = request.POST['last_name']
-        employee.email = request.POST['email']
-        employee.phone = request.POST['phone']
-        employee.salary = request.POST['salary']
-        employee.bonus = request.POST['bonus']
-        employee.dept = Department.objects.get(id=request.POST['dept'])
-        employee.role = Role.objects.get(id=request.POST['role'])
-        employee.date_hire = request.POST['date_hire']
-        employee.save()
-        context['success_message'] = 'Employee added successfully'
-        return render(request, 'add_employees.html', context)
-    else:
-        return render(request, 'add_employees.html', context)
+        try:
+            employee = Employee()
+            employee.first_name = request.POST['first_name']
+            employee.last_name = request.POST['last_name']
+            employee.email = request.POST['email']
+            employee.phone = request.POST['phone']
+            employee.salary = request.POST['salary']
+            employee.bonus = request.POST['bonus']
+            employee.dept = Department.objects.get(id=request.POST['dept'])
+            employee.role = Role.objects.get(id=request.POST['role'])
+            employee.date_hire = request.POST['date_hire']
+            employee.save()
+            return JsonResponse({
+                'success': True,
+                'message': 'Employee added successfully!',
+                'employee': {
+                    'id': employee.id,
+                    'first_name': employee.first_name,
+                    'last_name': employee.last_name,
+                    'email': employee.email,
+                    'phone': employee.phone,
+                    'salary': employee.salary,
+                    'bonus': employee.bonus,
+                    'dept': employee.dept.dept_name,
+                    'role': employee.role.role_name,
+                    'date_hire': employee.date_hire
+                }
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'message': str(e)
+            })
+    return JsonResponse({
+        'success': False,
+        'message': 'Invalid request method'
+    })
 
 def delete_employee(request):
     """
     View function to handle employee deletion.
-    GET: Displays the deletion form with all employees.
     POST: Processes the deletion request for a specific employee.
     """
-    context = {'employees': Employee.objects.all()}
     
     if request.method == 'POST':
         employee_id = request.POST.get('employee_id')
-        
         try:
             # Try to get the employee directly - more efficient than checking first
             employee = Employee.objects.get(id=employee_id)
             employee_name = str(employee)  # Get employee name/info for the success message
             employee.delete()
-            context['success_message'] = f'Employee {employee_name} deleted successfully'
+            return JsonResponse({
+                'success': True,
+                'message': f"Employee {employee_name} Deleted successfully!",
+            })
         except Employee.DoesNotExist:
-            # Handle the case when employee doesn't exist
-            context['error_message'] = f'Employee with ID {employee_id} does not exist'
+            return JsonResponse({
+                'success': False,
+                'message': "Employee Does Not Exists!"
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'message': str(e)
+            })
     
-    return render(request, 'delete_employees.html', context)
+    return JsonResponse({
+        'success': False,
+        'message': 'Invalid request method'
+    })
