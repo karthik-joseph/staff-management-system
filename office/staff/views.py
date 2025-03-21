@@ -25,9 +25,9 @@ def view_employee(request):
     
     # Add cache control headers to prevent browser caching
     response = render(request, 'view_employees.html', context)
-    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response['Pragma'] = 'no-cache'
-    response['Expires'] = '0'
+    # response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    # response['Pragma'] = 'no-cache'
+    # response['Expires'] = '0'
     
     return response
 

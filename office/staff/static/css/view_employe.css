@@ -1,10 +1,11 @@
+/* Minified CSS */
+
 .staff-directory {
   padding: 25px;
   background-color: var(--Soft-Shell);
   border-radius: var(--border-radius);
   font-family: var(--font-family);
 }
-
 .staff-directory h2 {
   color: var(--Midnight-Navy);
   font-family: var(--font-secondary);
@@ -14,7 +15,6 @@
   position: relative;
   padding-bottom: 10px;
 }
-
 .staff-directory h2::after {
   content: "";
   position: absolute;
@@ -24,7 +24,6 @@
   height: 3px;
   background-color: var(--Periwinkle);
 }
-
 .controls-row {
   display: flex;
   justify-content: space-between;
@@ -33,13 +32,11 @@
   flex-wrap: wrap;
   gap: 15px;
 }
-
 .search-bar {
   flex-grow: 1;
   max-width: 400px;
   position: relative;
 }
-
 .search-bar input {
   width: 100%;
   padding: 10px 15px 10px 40px;
@@ -49,7 +46,6 @@
   transition: var(--transition-speed);
   font-size: 0.9rem;
 }
-
 .search-bar i {
   position: absolute;
   left: 15px;
@@ -57,13 +53,11 @@
   transform: translateY(-50%);
   color: var(--disabled);
 }
-
 .search-bar input:focus {
   outline: none;
   border-color: var(--Periwinkle);
   box-shadow: 0 0 0 2px rgba(120, 134, 199, 0.2);
 }
-
 .filter-options select {
   padding: 10px 15px;
   border: 1px solid var(--Lavender-Mist);
@@ -75,12 +69,10 @@
   transition: var(--transition-speed);
   box-sizing: border-box;
 }
-
 .filter-options select:focus {
   outline: none;
   border-color: var(--Periwinkle);
 }
-
 .btn {
   padding: 10px 20px;
   background-color: var(--Midnight-Navy);
@@ -96,33 +88,27 @@
   gap: 8px;
   text-decoration: none;
 }
-
 .btn:hover {
   background-color: #3a4279;
   transform: translateY(-2px);
 }
-
 .btn-add {
   background-color: var(--Periwinkle);
 }
-
 .btn-add:hover {
   background-color: #8a96d0;
 }
-
 .staff-table-container {
   overflow-x: auto;
   background-color: white;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
-
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
-
 th {
   background-color: var(--Midnight-Navy);
   color: white;
@@ -132,39 +118,31 @@ th {
   position: sticky;
   top: 0;
 }
-
 th:first-child {
   border-top-left-radius: var(--border-radius);
 }
-
 th:last-child {
   border-top-right-radius: var(--border-radius);
 }
-
 td {
   padding: 12px 15px;
   border-bottom: 1px solid var(--alt-bg);
   color: var(--primary-text);
 }
-
 tr:last-child td {
   border-bottom: none;
 }
-
 tr:hover {
   background-color: var(--alt-bg);
 }
-
 .empid {
   font-weight: 500;
   color: var(--Midnight-Navy);
 }
-
 .actions {
   display: flex;
   gap: 10px;
 }
-
 .btn-icon {
   width: 32px;
   height: 32px;
@@ -178,31 +156,25 @@ tr:hover {
   color: var(--primary-text);
   transition: var(--transition-speed);
 }
-
 .btn-icon:hover {
   background-color: var(--Lavender-Mist);
   transform: translateY(-2px);
 }
-
 .btn-edit:hover {
   color: var(--Periwinkle);
 }
-
 .btn-delete:hover {
   color: var(--alert);
 }
-
 .btn-view:hover {
   color: var(--Midnight-Navy);
 }
-
 .pagination {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   gap: 5px;
 }
-
 .pagination a {
   padding: 8px 12px;
   border: 1px solid var(--Lavender-Mist);
@@ -211,25 +183,20 @@ tr:hover {
   text-decoration: none;
   transition: var(--transition-speed);
 }
-
 .pagination a:hover,
 .pagination a.active {
   background-color: var(--Periwinkle);
   color: white;
 }
-
 .pagination a.active {
   font-weight: 600;
 }
-
 .no-employee {
   text-align: center;
   padding: 30px;
   color: var(--disabled);
   font-style: italic;
 }
-
-/* Responsive design */
 @media (max-width: 1200px) {
   .filter-options {
     flex-basis: 100%;
@@ -237,7 +204,6 @@ tr:hover {
     flex-wrap: wrap;
     gap: 10px;
   }
-
   .filter-options select {
     flex-grow: 1;
     margin-right: 0;
@@ -248,17 +214,13 @@ tr:hover {
     flex-direction: column;
     align-items: stretch;
   }
-
   .search-bar {
     max-width: 100%;
   }
-
   .pagination {
     flex-wrap: wrap;
   }
 }
-
-/* Modal Styles */
 .modal {
   display: none;
   position: fixed;
@@ -271,7 +233,6 @@ tr:hover {
   background-color: rgba(0, 0, 0, 0.5);
   overflow-y: auto;
 }
-
 .modal-content {
   background-color: var(--Midnight-Navy);
   margin: 5% auto;
@@ -284,7 +245,6 @@ tr:hover {
   animation: jumpedContent 0.8s ease-in-out;
   color: var(--primary-text);
 }
-
 @keyframes jumpedContent {
   0% {
     transform: translateY(-100%);
@@ -296,7 +256,6 @@ tr:hover {
     opacity: 1;
   }
 }
-
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -305,12 +264,10 @@ tr:hover {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
-
 .modal-header h2 {
   margin: 0;
   color: var(--Periwinkle);
 }
-
 .close {
   font-size: 24px;
   font-weight: bold;
@@ -323,28 +280,23 @@ tr:hover {
   background-color: var(--Periwinkle);
   box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
 }
-
 .close:hover {
   color: var(--alert);
   transform: translateY(-2px);
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
 }
-
 .modal-body {
   padding: 20px 0;
 }
-
 .form-group {
   margin-bottom: 15px;
 }
-
 .form-group label {
   display: block;
   margin-bottom: 5px;
   color: var(--Lavender-Mist);
   font-weight: 500;
 }
-
 .form-group input,
 .form-group select {
   width: 100%;
@@ -356,26 +308,22 @@ tr:hover {
   box-shadow: 0 0 10px 10px rgba(198, 216, 218, 0.1);
   color: whitesmoke;
 }
-
 .form-group select option {
   background-color: var(--Midnight-Navy);
   color: whitesmoke;
 }
-
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
   border-color: #1a73e8;
   box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
 }
-
 .form-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 }
-
 .btn-submit,
 .btn-cancel {
   padding: 8px 16px;
@@ -384,51 +332,40 @@ tr:hover {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .btn-submit {
   background-color: #1a73e8;
   color: var();
   border: none;
 }
-
 .btn-submit:hover {
   background-color: #1557b0;
 }
-
 .btn-cancel {
   background-color: #f1f3f4;
   color: #5f6368;
   border: 1px solid #dadce0;
 }
-
 .btn-cancel:hover {
   background-color: #e8eaed;
 }
-
-/* Form Validation Styles */
 .form-group {
   position: relative;
   margin-bottom: 20px;
 }
-
 .error-message {
   color: #dc3545;
   font-size: 12px;
   margin-top: 5px;
   display: none;
 }
-
 .form-group input.error,
 .form-group select.error {
   border-color: #dc3545;
 }
-
 .form-group input.error:focus,
 .form-group select.error:focus {
   box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
 }
-
-/* Success Message For employee */
 .success-popup {
   position: fixed;
   top: 20px;
@@ -442,7 +379,6 @@ tr:hover {
   display: none;
   animation: slideIn 0.5s ease-out;
 }
-
 @keyframes slideIn {
   from {
     transform: translateX(100%);
@@ -453,7 +389,6 @@ tr:hover {
     opacity: 1;
   }
 }
-
 @keyframes slideOut {
   from {
     transform: translateX(0);
@@ -464,42 +399,34 @@ tr:hover {
     opacity: 0;
   }
 }
-
-/* Delete Modal Specific Styles */
 #deleteConfirmModal .modal-content {
   background-color: var(--Soft-Shell);
   border: 2px solid var(--Midnight-Navy);
   box-shadow: 0 4px 6px var(--disabled);
 }
-
 #deleteConfirmModal .modal-header {
   background-color: var(--alert);
   color: white;
   border-radius: 8px 8px 0 0;
   padding: 15px 20px;
 }
-
 #deleteConfirmModal .modal-header h2 {
   color: white;
   margin: 0;
   font-size: 1.5rem;
 }
-
 #deleteConfirmModal .close {
   color: white;
   border: 1px solid var(--Midnight-Navy);
   background-color: transparent;
 }
-
 #deleteConfirmModal .close:hover {
   background-color: rgba(255, 255, 255, 0.2);
   color: var(--Periwinkle);
 }
-
 #deleteConfirmModal .modal-body {
   padding: 25px;
 }
-
 #deleteConfirmModal #deleteConfirmMessage {
   color: #dc3545;
   font-size: 1.1rem;
@@ -507,13 +434,11 @@ tr:hover {
   margin-bottom: 25px;
   text-align: center;
 }
-
 #deleteConfirmModal .form-actions {
   display: flex;
   justify-content: center;
   gap: 15px;
 }
-
 #deleteConfirmModal .btn-submit {
   background-color: var(--alert);
   color: white;
@@ -525,13 +450,11 @@ tr:hover {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 #deleteConfirmModal .btn-submit:hover {
   background-color: #c82333;
   transform: translateY(-2px);
   box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
 }
-
 #deleteConfirmModal .btn-cancel {
   background-color: #f8f9fa;
   color: #6c757d;
@@ -543,14 +466,11 @@ tr:hover {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 #deleteConfirmModal .btn-cancel:hover {
   background-color: #e9ecef;
   transform: translateY(-2px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-/* Add warning icon to delete message */
 #deleteConfirmModal #deleteConfirmMessage::before {
   content: "\f071";
   font-family: "Font Awesome 5 Free";
@@ -558,8 +478,6 @@ tr:hover {
   margin-right: 10px;
   color: #dc3545;
 }
-
-/* Add animation for delete modal */
 @keyframes deleteModalIn {
   from {
     transform: translateY(-100px);
@@ -571,7 +489,6 @@ tr:hover {
     opacity: 1;
   }
 }
-
 #deleteConfirmModal .modal-content {
   animation: deleteModalIn 0.6s ease-out;
 }
