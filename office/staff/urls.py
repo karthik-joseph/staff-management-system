@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.view_employee, name='view_employee'),
     path('add_employee', views.add_employee, name='add_employee'),
     path('delete_employee', views.delete_employee, name='delete_employee'),
+    path('update_employee', views.update_employee, name='update_employee'),
 ]
 
 if settings.DEBUG:

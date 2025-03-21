@@ -1,15 +1,20 @@
-// Minified JS
+// Main initialization when DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
-  const e = document.getElementById("staffSearch"),
-    t = document.getElementById("deptFilter"),
-    n = document.getElementById("sortBy"),
-    o = document.querySelectorAll("table tr:not(:first-child)"),
-    l = document.createElement("div");
+  // DOM Elements for search, filters, and table
+  const e = document.getElementById("staffSearch"), // Search input field
+    t = document.getElementById("deptFilter"), // Department filter dropdown
+    n = document.getElementById("sortBy"), // Sort options dropdown
+    o = document.querySelectorAll("table tr:not(:first-child)"), // All table rows except header
+    l = document.createElement("div"); // Message container for no results
+
+  // Function to show/hide "no results" message
   function s(e, t, n) {
     const o = e > 0;
     (l.style.display = o ? "none" : "block"),
       (l.textContent = o ? "" : `No employees found in ${t}: "${n}"`);
   }
+
+  // Function to sort table rows based on column and type
   function r(e, t) {
     const n = document.querySelector("table tbody"),
       l = Array.from(o);
@@ -28,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
       l.forEach((e) => e.remove()),
       l.forEach((e) => n.appendChild(e));
   }
+
+  // Setup filter message container
   (l.id = "filter-message"),
     (l.style.textAlign = "center"),
     (l.style.padding = "1rem"),
@@ -36,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document
       .querySelector("table")
       .parentNode.insertBefore(l, document.querySelector("table").nextSibling),
+    // Event listener for sort dropdown
     n.addEventListener("change", function () {
       switch (this.value) {
         case "name":
@@ -51,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
           r(5, "date");
       }
     }),
+    // Event listener for search input
     e.addEventListener("keyup", function () {
       const e = this.value.toLowerCase();
       let t = 0;
@@ -61,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }),
         s(t, "search", this.value);
     }),
+    // Event listener for department filter
     t.addEventListener("change", function () {
       const e = this.value.toLowerCase();
       let t = 0;
@@ -76,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }),
         s(t, "department", this.value);
     }),
+    // Event listener for role filter
     roleFilter.addEventListener("change", function () {
       const e = this.value.toLowerCase();
       let t = 0;
@@ -91,16 +102,22 @@ document.addEventListener("DOMContentLoaded", function () {
       }),
         s(t, "role", this.value);
     });
+
+  // DOM Elements for Add Employee Modal
   const a = document.getElementById("addEmployeeModal"),
     d = document.getElementById("openAddModal"),
     c = document.querySelector(".close"),
     i = document.getElementById("cancelAdd"),
     u = document.getElementById("addEmployeeForm");
+
+  // Function to close add employee modal
   function m() {
     (a.style.display = "none"),
       (document.body.style.overflow = "auto"),
       u.reset();
   }
+
+  // Function to show error message for form fields
   function y(e, t) {
     const n = e.parentElement,
       o = n.querySelector(".error-message") || document.createElement("div");
@@ -110,10 +127,14 @@ document.addEventListener("DOMContentLoaded", function () {
       (o.style.display = "block"),
       e.classList.add("error");
   }
+
+  // Function to clear error message for form fields
   function p(e) {
     const t = e.parentElement.querySelector(".error-message");
     t && (t.style.display = "none"), e.classList.remove("error");
   }
+
+  // Function to validate add employee form
   function f() {
     let e = !0;
     const t = document
@@ -161,6 +182,8 @@ document.addEventListener("DOMContentLoaded", function () {
       e
     );
   }
+
+  // Function to show success message
   function h(e) {
     const t = document.getElementById("successPopup");
     (document.getElementById("successMessage").textContent = e),
@@ -173,6 +196,8 @@ document.addEventListener("DOMContentLoaded", function () {
           }, 500);
       }, 2500);
   }
+
+  // Event listeners for Add Employee Modal
   d.addEventListener("click", function () {
     (a.style.display = "block"), (document.body.style.overflow = "hidden");
   }),
@@ -181,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("click", function (e) {
       e.target === a && m();
     }),
+    // Event listener for Add Employee Form submission
     u.addEventListener("submit", function (e) {
       if ((e.preventDefault(), !f())) return;
       const t = new FormData(this);
@@ -198,7 +224,26 @@ document.addEventListener("DOMContentLoaded", function () {
             h(e.message), m();
             const t = document.querySelector("table tbody"),
               n = document.createElement("tr");
-            (n.innerHTML = `\n          <td class="empid">${e.employee.id}</td>\n          <td>${e.employee.first_name}</td>\n          <td>${e.employee.last_name}</td>\n          <td>${e.employee.dept}</td>\n          <td>${e.employee.role}</td>\n          <td>$${e.employee.salary}</td>\n          <td>$${e.employee.bonus}</td>\n          <td>${e.employee.email}</td>\n          <td>${e.employee.phone}</td>\n          <td>${e.employee.date_hire}</td>\n          <td class="actions">\n            <button class="btn-icon btn-edit" title="Edit">\n              <i class="fas fa-edit"></i>\n            </button>\n            <button class="btn-icon btn-delete" title="Delete">\n              <i class="fas fa-trash"></i>\n            </button>\n          </td>\n        `),
+            (n.innerHTML = `\n          
+            <td class="empid">${e.employee.id}</td>\n          
+            <td>${e.employee.first_name}</td>\n          
+            <td>${e.employee.last_name}</td>\n          
+            <td>${e.employee.dept}</td>\n          
+            <td>${e.employee.role}</td>\n          
+            <td>$${e.employee.salary}</td>\n          
+            <td>$${e.employee.bonus}</td>\n          
+            <td>${e.employee.email}</td>\n          
+            <td>${e.employee.phone}</td>\n          
+            <td>${e.employee.date_hire}</td>\n          
+            <td class="actions">\n            
+            <button class="btn-icon btn-edit" title="Edit">\n              
+                <i class="fas fa-edit"></i>\n           
+             </button>\n            
+             <button class="btn-icon btn-delete" title="Delete">\n              
+             <i class="fas fa-trash"></i>\n            
+             </button>\n          
+             </td>\n        
+             `),
               t.appendChild(n),
               this.reset();
           } else alert(e.message || "Error adding employee");
@@ -207,37 +252,34 @@ document.addEventListener("DOMContentLoaded", function () {
           console.error("Error:", e), alert("Error adding employee");
         });
     });
+
+  // Add real-time validation for form fields
   document
     .querySelectorAll("#addEmployeeForm input, #addEmployeeForm select")
     .forEach((e) => {
       e.addEventListener("input", function () {
         p(this), f();
       });
-    }),
-    document.querySelectorAll(".btn-view").forEach((e) => {
-      e.addEventListener("click", function () {
-        const e = this.closest("tr").querySelector(".empid").textContent;
-        alert(`View details for employee #${e}`);
-      });
-    }),
-    document.querySelectorAll(".btn-edit").forEach((e) => {
-      e.addEventListener("click", function () {
-        const e = this.closest("tr").querySelector(".empid").textContent;
-        alert(`Edit employee #${e}`);
-      });
     });
+
+  // DOM Elements for Delete Confirmation Modal
   const E = document.getElementById("deleteConfirmModal"),
     v = document.getElementById("deleteConfirmMessage"),
     b = document.getElementById("confirmDelete"),
     g = document.getElementById("cancelDelete");
+
+  // Function to close delete confirmation modal
   function L() {
     (E.style.display = "none"), (document.body.style.overflow = "auto");
   }
+
+  // Event listeners for Delete Confirmation Modal
   E.querySelector(".close").addEventListener("click", L),
     g.addEventListener("click", L),
     window.addEventListener("click", function (e) {
       e.target === E && L();
     }),
+    // Event listeners for delete buttons
     document.querySelectorAll(".btn-delete").forEach((e) => {
       e.addEventListener("click", function () {
         const e = this.closest("tr"),
@@ -250,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
           (E.dataset.rowElement = e.outerHTML);
       });
     }),
+    // Event listener for confirm delete button
     b.addEventListener("click", function () {
       const e = E.dataset.employeeId,
         t = new FormData();
@@ -294,6 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
               L();
           });
     }),
+    // Event listeners for pagination
     document.querySelectorAll(".pagination a").forEach((e) => {
       e.addEventListener("click", function (e) {
         e.preventDefault(),

@@ -103,3 +103,58 @@ def delete_employee(request):
         'success': False,
         'message': 'Invalid request method'
     }, status=405)
+
+def update_employee(request):
+    """
+    View function to handle employee updates.
+    POST: Processes the update request for a specific employee.
+    """
+    if request.method == 'POST':
+        employee_id = request.POST.get('employee_id')
+        try:
+            employee = Employee.objects.get(id=employee_id)
+            
+            # Update employee fields
+            employee.first_name = request.POST['first_name']
+            employee.last_name = request.POST['last_name']
+            employee.email = request.POST['email']
+            employee.phone = request.POST['phone']
+            employee.salary = request.POST['salary']
+            employee.bonus = request.POST['bonus']
+            employee.dept = Department.objects.get(id=request.POST['dept'])
+            employee.role = Role.objects.get(id=request.POST['role'])
+            employee.date_hire = request.POST['date_hire']
+            
+            employee.save()
+            
+            return JsonResponse({
+                'success': True,
+                'message': f'Employee {employee.first_name} {employee.last_name} updated successfully!',
+                'employee': {
+                    'id': employee.id,
+                    'first_name': employee.first_name,
+                    'last_name': employee.last_name,
+                    'email': employee.email,
+                    'phone': employee.phone,
+                    'salary': employee.salary,
+                    'bonus': employee.bonus,
+                    'dept': employee.dept.dept_name,
+                    'role': employee.role.role_name,
+                    'date_hire': employee.date_hire
+                }
+            })
+        except Employee.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'message': 'Employee not found!'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'message': str(e)
+            }, status=500)
+    
+    return JsonResponse({
+        'success': False,
+        'message': 'Invalid request method'
+    }, status=405)
