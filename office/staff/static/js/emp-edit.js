@@ -1,3 +1,4 @@
+// Minified emp-edit.js
 // Main initialization when DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
   // DOM Elements for Update Modal
