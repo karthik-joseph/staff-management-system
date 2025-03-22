@@ -24,18 +24,22 @@ View {% endblock %} {% block style %}
     <div class="filter-options">
       <select id="deptFilter">
         <option value="">All Departments</option>
-        {% for department in departments %}
+        {% if departments %} {% for department in departments %}
         <option value="{{ department.dept_name }}">
           {{ department.dept_name }}
         </option>
-        {% endfor %}
+        {% endfor %} {% else %}
+        <option value="" disabled>No Departments Found</option>
+        {% endif %}
       </select>
 
       <select id="roleFilter">
         <option value="">All Roles</option>
-        {% for role in roles %}
+        {% if roles %} {% for role in roles %}
         <option value="{{ role.role_name }}">{{ role.role_name }}</option>
-        {% endfor %}
+        {% endfor %} {% else %}
+        <option value="" disabled>No Roles Found</option>
+        {% endif %}
       </select>
 
       <select id="sortBy">
@@ -75,9 +79,11 @@ View {% endblock %} {% block style %}
             <label for="dept">Department:</label>
             <select name="dept" id="dept" required>
               <option value="">Select Department</option>
-              {% for dept in departments %}
+              {% if departments %} {% for dept in departments %}
               <option value="{{ dept.id }}">{{ dept.dept_name }}</option>
-              {% endfor %}
+              {% endfor %} {% else %}
+              <option value="" disabled>No Departments Found</option>
+              {% endif %}
             </select>
             <div class="error-message"></div>
           </div>
@@ -85,9 +91,11 @@ View {% endblock %} {% block style %}
             <label for="role">Role:</label>
             <select name="role" id="role" required>
               <option value="">Select Role</option>
-              {% for role in roles %}
+              {% if roles %} {% for role in roles %}
               <option value="{{ role.id }}">{{ role.role_name }}</option>
-              {% endfor %}
+              {% endfor %} {% else %}
+              <option value="" disabled>No Roles Found</option>
+              {% endif %}
             </select>
             <div class="error-message"></div>
           </div>
@@ -168,9 +176,11 @@ View {% endblock %} {% block style %}
             <label for="update_dept">Department:</label>
             <select name="dept" id="update_dept" required>
               <option value="">Select Department</option>
-              {% for dept in departments %}
+              {% if departments %} {% for dept in departments %}
               <option value="{{ dept.id }}">{{ dept.dept_name }}</option>
-              {% endfor %}
+              {% endfor %} {% else %}
+              <option value="" disabled>No Departments Found</option>
+              {% endif %}
             </select>
             <div class="error-message"></div>
           </div>
@@ -178,9 +188,11 @@ View {% endblock %} {% block style %}
             <label for="update_role">Role:</label>
             <select name="role" id="update_role" required>
               <option value="">Select Role</option>
-              {% for role in roles %}
+              {% if roles %} {% for role in roles %}
               <option value="{{ role.id }}">{{ role.role_name }}</option>
-              {% endfor %}
+              {% endfor %} {% else %}
+              <option value="" disabled>No Roles Found</option>
+              {% endif %}
             </select>
             <div class="error-message"></div>
           </div>
