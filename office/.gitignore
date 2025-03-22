@@ -10,6 +10,6 @@ __pycache__/
 *.pyzw
 *.pyz
 db.sqlite3
-*.docx
-*.pdf
+.docx
+.pdf
 
