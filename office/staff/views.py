@@ -175,7 +175,7 @@ def update_employee(request):
         'message': 'Invalid request method'
     }, status=405)
 
-def page_not_found(request, exception):
+def page_not_found(request, exception=None):
     """
     Custom 404 page handler
     """
