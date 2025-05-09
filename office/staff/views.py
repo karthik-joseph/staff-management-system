@@ -1,19 +1,23 @@
 import datetime
-
 from django.shortcuts import render
 from django.db.models import Q
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 from .models import Employee, Department, Role
 
 
 def view_employee(request):
     """
-    View function to display all employees.
-    Ensures fresh data is fetched sfrom the database on each request.
+    View function to display all employees with pagination.
     """
-    # Always fetch fresh data from the database
-    employees = Employee.objects.all()
+    # Get all employees
+    employees_list = Employee.objects.all()
+    
+    # Pagination
+    paginator = Paginator(employees_list, 10)  # Show 10 employees per page
+    page = request.GET.get('page')
+    employees = paginator.get_page(page)
     
     context = {
         'employees': employees,

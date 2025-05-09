@@ -314,15 +314,67 @@ View {% endblock %} {% block style %}
     </table>
   </div>
 
-  <!-- TODO: if any pagination exits need to implement -->
-  <div class="pagination">
-    <a href="#" class="active">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">Next</a>
+  <div class="pagination-container">
+    <div class="pagination">
+      {% if employees.has_previous %}
+      <a href="?page=1" class="page-link">&laquo; First</a>
+      <a href="?page={{ employees.previous_page_number }}" class="page-link"
+        >Previous</a
+      >
+      {% endif %}
+
+      <span class="current-page">
+        Page {{ employees.number }} of {{ employees.paginator.num_pages }}
+      </span>
+
+      {% if employees.has_next %}
+      <a href="?page={{ employees.next_page_number }}" class="page-link"
+        >Next</a
+      >
+      <a href="?page={{ employees.paginator.num_pages }}" class="page-link"
+        >Last &raquo;</a
+      >
+      {% endif %}
+    </div>
   </div>
+
+  <style>
+    .pagination-container {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .pagination {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .page-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--Periwinkle);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      transition: var(--transition-speed);
+    }
+
+    .page-link:hover {
+      background: var(--Midnight-Navy);
+      transform: translateY(-2px);
+    }
+
+    .current-page {
+      padding: 0.5rem 1rem;
+      background: var(--Soft-Shell);
+      color: var(--Midnight-Navy);
+      border-radius: var(--border-radius);
+      font-weight: 500;
+    }
+  </style>
 </div>
 <script src="{% static 'js/Employee.js' %}"></script>
 <script src="{% static 'js/emp-edit.js' %}"></script>
