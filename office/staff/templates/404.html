@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="error-container">
+  <div class="error-content">
+    <h1 class="error-title">404</h1>
+    <h2 class="error-subtitle">Page Not Found</h2>
+    <p class="error-message">
+      Oops! The page you're looking for doesn't exist.
+    </p>
+    <a href="{% url 'home' %}" class="back-home-btn">Back to Home</a>
+  </div>
+</div>
+
+<style>
+  .error-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Midnight-Navy);
+    padding: 20px;
+  }
+
+  .error-content {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .error-title {
+    font-size: 120px;
+    color: var(--Periwinkle);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .error-subtitle {
+    font-size: 32px;
+    color: var(--Midnight-Navy);
+    margin: 20px 0;
+  }
+
+  .error-message {
+    color: var(--primary-text);
+    margin-bottom: 30px;
+    font-size: 18px;
+  }
+
+  .back-home-btn {
+    display: inline-block;
+    background: var(--Periwinkle);
+    color: white;
+    padding: 12px 30px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition-speed);
+  }
+
+  .back-home-btn:hover {
+    background: var(--Midnight-Navy);
+    transform: translateY(-2px);
+  }
+</style>
+{% endblock %}
