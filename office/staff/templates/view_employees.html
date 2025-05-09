@@ -317,8 +317,16 @@ View {% endblock %} {% block style %}
   <div class="pagination-container">
     <div class="pagination">
       {% if employees.has_previous %}
-      <a href="?page=1" class="page-link">&laquo; First</a>
-      <a href="?page={{ employees.previous_page_number }}" class="page-link"
+      <a
+        href="?page=1"
+        class="page-link"
+        onclick="window.location.href='?page=1'; return false;"
+        >&laquo; First</a
+      >
+      <a
+        href="?page={{ employees.previous_page_number }}"
+        class="page-link"
+        onclick="window.location.href='?page={{ employees.previous_page_number }}'; return false;"
         >Previous</a
       >
       {% endif %}
@@ -328,10 +336,16 @@ View {% endblock %} {% block style %}
       </span>
 
       {% if employees.has_next %}
-      <a href="?page={{ employees.next_page_number }}" class="page-link"
+      <a
+        href="?page={{ employees.next_page_number }}"
+        class="page-link"
+        onclick="window.location.href='?page={{ employees.next_page_number }}'; return false;"
         >Next</a
       >
-      <a href="?page={{ employees.paginator.num_pages }}" class="page-link"
+      <a
+        href="?page={{ employees.paginator.num_pages }}"
+        class="page-link"
+        onclick="window.location.href='?page={{ employees.paginator.num_pages }}'; return false;"
         >Last &raquo;</a
       >
       {% endif %}
