@@ -14,3 +14,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Add this at the bottom of the file
+handler404 = 'staff.views.handler404'

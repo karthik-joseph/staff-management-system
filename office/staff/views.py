@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import render
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.core.paginator import Paginator
 
 from .models import Employee, Department, Role
@@ -11,29 +11,28 @@ def view_employee(request):
     """
     View function to display all employees with pagination.
     """
-    # Get all employees
-    employees_list = Employee.objects.all()
-    
-    # Pagination
-    paginator = Paginator(employees_list, 10)  # Show 10 employees per page
-    page = request.GET.get('page')
-    employees = paginator.get_page(page)
-    
-    context = {
-        'employees': employees,
-        'departments': Department.objects.all(),
-        'roles': Role.objects.all(),
-        # Added timestamp to prevent browser caching
-        'timestamp': datetime.datetime.now().timestamp(),
-    }
-    
-    # Add cache control headers to prevent browser caching
-    response = render(request, 'view_employees.html', context)
-    # response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    # response['Pragma'] = 'no-cache'
-    # response['Expires'] = '0'
-    
-    return response
+    try:
+        # Get all employees
+        employees_list = Employee.objects.all()
+        
+        # Pagination
+        paginator = Paginator(employees_list, 10)  # Show 10 employees per page
+        page = request.GET.get('page')
+        employees = paginator.get_page(page)
+        
+        context = {
+            'employees': employees,
+            'departments': Department.objects.all(),
+            'roles': Role.objects.all(),
+            'timestamp': datetime.datetime.now().timestamp(),
+        }
+        
+        return render(request, 'view_employees.html', context)
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'message': str(e)
+        }, status=500)
 
 def add_employee(request):
     if request.method == 'POST':
@@ -69,40 +68,46 @@ def add_employee(request):
             return JsonResponse({
                 'success': False,
                 'message': str(e)
-            })
+            }, status=400)
     return JsonResponse({
         'success': False,
         'message': 'Invalid request method'
-    })
+    }, status=405)
 
 def delete_employee(request):
     """
     View function to handle employee deletion.
     POST: Processes the deletion request for a specific employee.
     """
-    
     if request.method == 'POST':
-        employee_id = request.POST.get('employee_id')
         try:
-            # Try to get the employee directly - more efficient than checking first
+            employee_id = request.POST.get('employee_id')
+            if not employee_id:
+                raise ValueError("Employee ID is required")
+                
             employee = Employee.objects.get(id=employee_id)
-            employee_name = str(employee)  # Get employee name/info for the success message
+            employee_name = str(employee)
             employee.delete()
+            
             return JsonResponse({
                 'success': True,
-                'message': f"Employee {employee_name} Deleted successfully!",
-            }, status=200)
+                'message': f"Employee {employee_name} deleted successfully!"
+            })
         except Employee.DoesNotExist:
             return JsonResponse({
                 'success': False,
-                'message': "Employee Does Not Exists!"
+                'message': "Employee not found!"
             }, status=404)
+        except ValueError as e:
+            return JsonResponse({
+                'success': False,
+                'message': str(e)
+            }, status=400)
         except Exception as e:
             return JsonResponse({
                 'success': False,
                 'message': str(e)
             }, status=500)
-    
     return JsonResponse({
         'success': False,
         'message': 'Invalid request method'
@@ -114,8 +119,11 @@ def update_employee(request):
     POST: Processes the update request for a specific employee.
     """
     if request.method == 'POST':
-        employee_id = request.POST.get('employee_id')
         try:
+            employee_id = request.POST.get('employee_id')
+            if not employee_id:
+                raise ValueError("Employee ID is required")
+                
             employee = Employee.objects.get(id=employee_id)
             
             # Update employee fields
@@ -152,19 +160,30 @@ def update_employee(request):
                 'success': False,
                 'message': 'Employee not found!'
             }, status=404)
+        except ValueError as e:
+            return JsonResponse({
+                'success': False,
+                'message': str(e)
+            }, status=400)
         except Exception as e:
             return JsonResponse({
                 'success': False,
                 'message': str(e)
             }, status=500)
-    
     return JsonResponse({
         'success': False,
         'message': 'Invalid request method'
     }, status=405)
 
-
-
 def page_not_found(request, exception):
+    """
+    Custom 404 page handler
+    """
     return render(request, '404.html', status=404)
+
+def handler404(request, *args, **kwargs):
+    """
+    Global 404 handler
+    """
+    return page_not_found(request, None)
 
