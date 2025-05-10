@@ -76,12 +76,25 @@ WSGI_APPLICATION = 'office.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# postgresql db 
+# production db 
+
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://postgres:postgres@localhost:5432/staff_management',
         conn_max_age=600,
     )
 }
+
+
+# sqlite db 
+# local db 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -119,9 +132,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'staff/static/'
+
+# local static files
+# comment out in production
 # STATICFILES_DIRS = [
 #     BASE_DIR / "staff/static",
 # ]
+
+# production static files
+# comment out in local
 STATIC_ROOT = BASE_DIR / 'staff/staticfiles'
 
 MEDIA_URL = '/media/'
