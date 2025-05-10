@@ -2,7 +2,7 @@
 View {% endblock %} {% block style %}
 <link rel="stylesheet" href="{% static 'css/view_employe.css' %}" />
 <link
-  rel="preconnect"
+  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 />
 {% endblock %} {% block content %} {% csrf_token %}
@@ -22,6 +22,9 @@ View {% endblock %} {% block style %}
     </div>
 
     <div class="filter-options">
+      <label for="deptFilter" class="visually-hidden"
+        >Filter by department</label
+      >
       <select id="deptFilter">
         <option value="">All Departments</option>
         {% if departments %} {% for department in departments %}
@@ -33,6 +36,7 @@ View {% endblock %} {% block style %}
         {% endif %}
       </select>
 
+      <label for="roleFilter" class="visually-hidden">Filter by role</label>
       <select id="roleFilter">
         <option value="">All Roles</option>
         {% if roles %} {% for role in roles %}
@@ -42,6 +46,7 @@ View {% endblock %} {% block style %}
         {% endif %}
       </select>
 
+      <label for="sortBy" class="visually-hidden">Sort by</label>
       <select id="sortBy">
         <option value="id">Sort by ID</option>
         <option value="name">Sort by Name</option>

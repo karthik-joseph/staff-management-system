@@ -58,6 +58,7 @@
   border-color: var(--Periwinkle);
   box-shadow: 0 0 0 2px rgba(120, 134, 199, 0.2);
 }
+
 .filter-options select {
   padding: 10px 15px;
   border: 1px solid var(--Lavender-Mist);
@@ -68,6 +69,9 @@
   color: var(--primary-text);
   transition: var(--transition-speed);
   box-sizing: border-box;
+}
+.filter-options .visually-hidden {
+  display: none;
 }
 .filter-options select:focus {
   outline: none;
